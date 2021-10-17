@@ -1,0 +1,22 @@
+
+config:
+    name: "后台管理系统日常核心测试场景"
+#    variables:
+#        device_sn: "XYZ"
+    base_url: "http://${ENV(Aliyunhost)}"
+
+testcases:
+-
+    name: 核心场景1-用户登录>创建用户>修改默认密码
+    testcase: /testcases/case-createUser.yml
+#    variables:
+#        device_sn: $device_sn
+-
+    name: 核心场景2-用户管理界面>用户数据导出
+    testcase: /testcases/case-downloadUserFile.yml
+#    variables:
+#        device_sn: $device_sn
+
+-
+    name: 核心场景3-验证个人中心修改默认密码后是否生效
+    testcase: /testcases/case-resetPassword.yml

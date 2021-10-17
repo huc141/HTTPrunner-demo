@@ -1,0 +1,56 @@
+
+config:
+    name: "登录系统并创建一个新用户,然后查询该用户"
+
+    variables:
+        deptId: 105
+        email: ${AutoEmail()}
+        userName: ${AutoNickName()}
+        nickName: ${AutoNickName()}
+        password: 123456
+        phonenumber: ${AutoPhonenumber()}
+
+    base_url: "http://${ENV(Aliyunhost)}"
+
+    output:
+        - userName
+
+teststeps:
+-
+    name: 用户登录
+    testcase: /testcases/case-Login.yml
+#    variables:
+#        user_agent: 'iOS/10.3'
+#        device_sn: $device_sn
+#    extract:
+#        - token: content.token
+    validate:
+        - eq: ["status_code", 200]
+-
+    name: 创建新用户
+    api: demo/api/api-createUser.yml
+
+-
+    name: 根据用户名称搜索新用户
+    api: demo/api/api-searchUser.yml
+
+-
+    name: 退出系统
+    api: demo/api/api-Logout.yml
+
+-
+    name: 新用户以默认密码登录系统
+    testcase: /testcases/case-Login.yml
+    variables:
+        username: $userName
+        password: ${ENV(PASSWORD)}
+
+-
+    name: 重置密码
+    api: demo/api/api-resetPassword.yml
+
+-
+    name: 退出系统
+    api: demo/api/api-Logout.yml
+    teardown_hooks:
+        - ${sleep(5)}

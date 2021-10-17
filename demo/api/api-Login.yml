@@ -1,0 +1,25 @@
+
+name: 测试步骤-登录RuoYi后台管理系统
+
+variables:
+    code:
+    username: $username
+    password: $password
+    uuid:
+
+request:
+    url: /prod-api/login
+    method: POST
+    headers:
+        Content-Type: "application/json"
+    json:
+      {
+#         "code":"",
+          "password":$password,
+          "username":$username,
+          "uuid":""
+      }
+
+validate:
+    - eq: ["status_code", 200]
+    - eq: ["json.msg", "操作成功"]

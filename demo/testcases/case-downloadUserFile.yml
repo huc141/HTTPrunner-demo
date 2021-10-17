@@ -1,0 +1,25 @@
+
+config:
+    name: "验证用户管理界面的用户数据导出接口"
+
+#    variables:
+#        username: ${ENV(USERNAME)}
+#        password: ${ENV(PASSWORD)}
+
+    base_url: "http://${ENV(Aliyunhost)}"
+
+teststeps:
+-
+    name: 用户登录
+    testcase: /testcases/case-Login.yml
+
+#    variables:
+#        user_agent: 'iOS/10.3'
+#        device_sn: $device_sn
+#    extract:
+#        - token: content.token
+#    validate:
+#        - eq: ["status_code", 200]
+-
+    name: 导出用户数据
+    api: demo/api/api-downloadUserFile.yml
